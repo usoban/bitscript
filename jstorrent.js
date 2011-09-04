@@ -10,8 +10,17 @@ torrentServer.start(6621);
 
 // Create client and announce
 
-var c = new torrentClient('./torrents/test1.torrent');
+var c = new torrentClient('./torrents/test2.torrent');
 
 c.on('ready', function(){
 	c.announceAll('started');
 });
+
+process.on('exit', function(){
+	c.announceAll('stopped');
+});
+
+/*
+process.on('uncaughtException', function(){
+	c.announceAll('stopped');
+});*/
